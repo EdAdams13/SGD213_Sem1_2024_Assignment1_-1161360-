@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody rb;
 	private float inttotalcount;
 
+	
+
 	// At the start of the game..
 	void Start ()	{rb = GetComponent<Rigidbody>();inttotalcount = 0;SetCountText ();wintext.text = "";}
 
@@ -27,8 +29,12 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 		// Create a Vector3 variable, and assign X and Z to feature our horizontal and vertical float variables above
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-		rb.AddForce (movement * f_horPlayAccel);
+		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical).normalized;
+		
+		//rb.AddForce (movement * f_horPlayAccel);
+
+		transform.Translate(movement * f_horPlayAccel * Time.deltaTime, Space.World);
+
 	}
 	void OnTriggerEnter(Collider other) 
 {
